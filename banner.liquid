@@ -1,0 +1,84 @@
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner Heading",
+      "default": "Your Banner Heading"
+    },
+    {
+      "type": "text",
+      "id": "banner_subheading",
+      "label": "Banner Subheading",
+      "default": "Your Banner Subheading"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-banner" style="background-image: url({{ section.settings.banner_image | img_url: 'master' }});">
+  <div class="banner-content">
+    <h1 style="color: {{ section.settings.heading_color }}">{{ section.settings.banner_heading }}</h1>
+    <p style="color: {{ section.settings.subheading_color }}">{{ section.settings.banner_subheading }}</p>
+    {% if section.settings.banner_link != blank %}
+      <a href="{{ section.settings.banner_link }}" class="banner-button">Shop Now</a>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .custom-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+  }
+  .banner-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+  .banner-content p {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .banner-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: red;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+</style>

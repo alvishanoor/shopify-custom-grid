@@ -1,0 +1,22 @@
+document.addEventListener('DOMContentLoaded', function() {
+  // Listen for all "Add to Cart" forms
+  document.querySelectorAll('form[action^="/cart/add"]').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      const selectedOptions = Array.from(form.querySelectorAll('select')).map(s => s.value);
+
+      // Check if Black + Medium variant is selected
+      if (selectedOptions.includes('Black') && selectedOptions.includes('Medium')) {
+        // Replace 1234567890 with actual Soft Winter Jacket variant ID
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: [{ id: 1234567890, quantity: 1 }] })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Soft Winter Jacket added automatically!', data))
+        .catch(err => console.error('Error adding Soft Winter Jacket:', err));
+      }
+    });
+  });
+});
+

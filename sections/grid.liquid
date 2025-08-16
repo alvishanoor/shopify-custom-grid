@@ -1,0 +1,51 @@
+{% schema %}
+{
+  "name": "Product Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "number",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "default": 4
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign products = section.settings.collection.products | slice: 0, 12 %}
+
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-item" style="width: {{ 100 | divided_by: section.settings.products_per_row }}%">
+      <a href="{{ product.url }}">
+        <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.price | money }}</p>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .product-item img {
+    width: 100%;
+    height: auto;
+  }
+</style>
